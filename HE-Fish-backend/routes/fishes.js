@@ -79,7 +79,7 @@ router.post('/insert-new-fish', upload.single('image'), (req, res) => {
     const data = req.body
     const file = req.file
 
-    const filePath = `http://10.0.2.2:3000/${file.path.replace('\\', '/')}`
+    const filePath = `${file.path.replace('\\', '/')}`
 
     const q = `insert into fishes (user_id, fish_type_id, fish_name, description, price, image_path) 
                 values (${data.userID}, ${data.fishType}, '${data.name}', '${data.desc}', ${data.price}, '${filePath}')`

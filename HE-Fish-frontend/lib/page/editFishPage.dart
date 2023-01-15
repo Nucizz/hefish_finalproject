@@ -342,7 +342,7 @@ class _EditFishPageState extends State<EditFishPage> {
                               : Stack(
                                   children: [
                                     Image.network(
-                                      widget.item.imagePath,
+                                      "${Host.main}/${widget.item.imagePath}",
                                       width: 160,
                                       height: 240,
                                       fit: BoxFit.cover,

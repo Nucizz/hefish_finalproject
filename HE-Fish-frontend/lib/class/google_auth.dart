@@ -48,10 +48,8 @@ class GoogleAuth {
     var res = jsonDecode(resp.body);
     if (res.length > 0) {
       return User.fromJson(res[0]);
-    } else if (res.length == 0) {
-      return User(id: -404, email: "???", username: "???", token: "???");
     } else {
-      return User(id: -500, email: "???", username: "???", token: "???");
+      return User(id: -404, email: "???", username: "???", token: "???");
     }
   }
 

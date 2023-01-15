@@ -233,50 +233,45 @@ class _LoginPageState extends State<LoginPage> {
                                 final googleUser =
                                     await GoogleAuth.googleLogin();
                                 String errorMsg = "Login Success";
-                                Color snackBG;
+                                Color snackBG = Palette.success;
                                 if (googleUser != null) {
+                                  //Check registered google user
+                                  bool registered = false;
                                   if (await GoogleAuth.googleRegisterCheck(
                                       googleUser.email)) {
-                                    User googleAuthenticated =
+                                    registered = true;
+                                  } else if (await GoogleAuth.googleRegister(
+                                      googleUser.email,
+                                      googleUser.email.split('@')[0])) {
+                                    registered = true;
+                                  }
+
+                                  if (registered) {
+                                    User authenticated =
                                         await GoogleAuth.googleGetUser(
                                             googleUser.email);
-                                    if (googleAuthenticated.id >= 0) {
+                                    if (authenticated.id >= 0) {
                                       Navigator.of(context).push(
                                           AnimatedPageRoute(
                                               child: HomePage(
-                                                  user: googleAuthenticated)));
-                                      snackBG = Palette.success;
+                                                  user: authenticated)));
                                     } else {
-                                      errorMsg = "Something went wrong!";
-                                      snackBG = Palette.error;
-                                    }
-                                  } else {
-                                    if (await GoogleAuth.googleRegister(
-                                        googleUser.email,
-                                        googleUser.email.split('@')[0])) {
-                                      User googleAuthenticated =
-                                          await GoogleAuth.googleGetUser(
-                                              googleUser.email);
-                                      if (googleAuthenticated.id >= 0) {
-                                        Navigator.of(context).push(
-                                            AnimatedPageRoute(
-                                                child: HomePage(
-                                                    user:
-                                                        googleAuthenticated)));
-                                        snackBG = Palette.success;
-                                      } else {
-                                        errorMsg = "Something went wrong!";
-                                        snackBG = Palette.error;
-                                      }
-                                    } else {
+                                      await GoogleAuth.googleLogout();
                                       errorMsg = "Something went wrong!";
                                       snackBG = Palette.error;
                                     }
                                   }
                                 } else {
-                                  errorMsg = "Can't authenticate with Google!";
+                                  errorMsg = "Couldn't connect to Google!";
                                   snackBG = Palette.error;
                                 }
+                                final message = SnackBar(
+                                  content: Text(errorMsg),
+                                  backgroundColor: snackBG,
+                                  duration: const Duration(seconds: 3),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(message);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(5),

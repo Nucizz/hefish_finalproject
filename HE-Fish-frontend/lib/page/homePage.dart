@@ -53,9 +53,9 @@ class _HomePageState extends State<HomePage> {
 
   String getGreetings(String name) {
     var dt = DateTime.now();
-    if (name.length > 20) {
+    if (name.length > 18) {
       return "Hi";
-    } else if (name.length > 15) {
+    } else if (name.length > 12) {
       return "Welcome";
     } else if (dt.hour < 11) {
       return "Good morning";
@@ -152,7 +152,6 @@ class _HomePageState extends State<HomePage> {
                           "${getGreetings(widget.user.username)}, ${widget.user.username}!",
                           style: const TextStyle(
                               fontSize: 24, fontWeight: FontWeight.w600),
-                          overflow: TextOverflow.ellipsis,
                         ))),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -202,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                                       const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(20.0),
-                                    child: Image.network(e,
+                                    child: Image.network("${Host.main}/$e",
                                         fit: BoxFit.cover,
                                         height: 360,
                                         width: 270),

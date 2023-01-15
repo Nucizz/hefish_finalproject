@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import '../class/color_palette.dart';
 import '../class/fishes.dart';
+import '../class/host.dart';
 import '../class/user.dart';
 import '../page/fishDetailPage.dart';
 import 'animatedPageRoute.dart';
@@ -46,7 +47,7 @@ class _CustomListViewState extends State<CustomListView> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
-                  widget.item.imagePath,
+                  "${Host.main}/${widget.item.imagePath}",
                   fit: BoxFit.cover,
                 ),
               ),

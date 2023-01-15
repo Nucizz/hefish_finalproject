@@ -187,7 +187,7 @@ class _FishDetailPageState extends State<FishDetailPage> {
               widthFactor: 1,
               heightFactor: 0.6,
               child: Image.network(
-                widget.item.imagePath,
+                "${Host.main}/${widget.item.imagePath}",
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,

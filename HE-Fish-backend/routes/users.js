@@ -109,12 +109,13 @@ router.post('/login', (req, res) => {
 router.post('/login-oauth', (req, res) => {
   const data = req.body
 
-  const q = `SELECT u.id, u.username, u.email, u.token FROM users u WHERE email = '${data.email}' AND LENGTH(u.token) > 0`
-  
-  console.log(result)
+  console.log(data)
 
+  const q = `SELECT u.id, u.username, u.email, u.token FROM users u WHERE email = '${data.email}' AND LENGTH(u.token) = 10`
+  
   db.query(q, (err, result) => {
     if(err) throw err
+    
     res.send(result)
   })
 })
