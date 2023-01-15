@@ -43,17 +43,6 @@ router.get('/all-fish', (req, res) => {
     })
 })
 
-// get specific fish type
-router.get('/fish-type/:type', (req, res) => {
-    const type = req.params.type
-    const q = `SELECT * FROM fishes f JOIN fish_types ft on f.fish_type_id = ft.id JOIN users u on f.user_id = u.id WHERE ft.name = '${type}'`
-    // res.send("asfdjasdf")
-    db.query(q, (err, result) => {
-        if(err) throw err
-        res.send(result)
-    })
-})
-
 // fish detail query
 router.get('/get-fish', (req, res) => {
     const id = req.query.id
@@ -111,8 +100,6 @@ router.post('/update-fish', (req, res) => {
     const data = req.body
 
     const q = `UPDATE fishes SET fish_type_id = ${data.fishType}, fish_name = '${data.name}', description = '${data.desc}', price = ${data.price} WHERE fish_id = '${data.id}'`
-    
-    console.log(data)
 
     db.query(q, (err, result) => {
         if(err) throw err
